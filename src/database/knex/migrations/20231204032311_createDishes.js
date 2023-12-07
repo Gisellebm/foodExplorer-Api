@@ -4,7 +4,7 @@ exports.up = knex => knex.schema.createTable("dishes", table => {
     table.text("description").notNullable();
     table.text("category").notNullable();
     table.decimal("price").notNullable();
-    table.text("dishImg");
+    table.text("dish_img").nullable().defaultTo(null);
  
     table.timestamp("createdAt").defaultTo(knex.fn.now());
     table.timestamp("updatedAt").defaultTo(knex.fn.now());

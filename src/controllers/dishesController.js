@@ -8,8 +8,7 @@ class DishesController {
             name,
             description,
             category,
-            price,
-            dishImg
+            price
         })
 
         const ingredientsInsert = ingredients.map(name => {
@@ -23,6 +22,18 @@ class DishesController {
 
         response.status(201).json({
             message: "Prato criado com sucesso!"
+        })
+    }
+
+    async show(request, response) {
+        const { id } = request.params
+
+        const dish = await knex("dishes").where({ id }).first()
+        const ingredients = await knex("ingredients").where({ dish_id: id }).orderBy("name")
+
+        return response.json({
+            ...dish,
+            ingredients
         })
     }
 }
